@@ -2,13 +2,20 @@
 <html lang="en">
   <head>
     <title>EncryptDecrypter</title>
+    <script type="text/javascript" src="sha512.js"></script>
+    <script type="text/javascript" src="functions.js"></script>
   </head>
 
   <body>
-    <form action="/functions.js">
-      <input type="text" name="data_in" placeholder="Enter your text here" size='' style="width:50%; height:25vh"><br>
-      <input type="text" name="key" placeholder="Enter your key here"><br>
-      <input type="submit" value="Submit">
+    <textarea id="data_in" placeholder="Enter your text here" style="width:50%; height:25vh"></textarea><br>
+    <textarea id="key" placeholder="Enter your key here" style="width:50%; height:25vh"></textarea><br>
+    <form id="encryption">
+      <input type="radio" id="OTP" name="encryption" value="OTP"> OTP<br>
+      <input type="radio" id="SHA-2_SHA-512" name="encryption" value="SHA-2_SHA-512"> SHA-2_SHA-512<br>
+      <input type="radio" id="MD5" name="encryption" value="MD5"> MD5<br>
     </form>
+    <button type='button' id="Encrypt" onclick="encrypt()">Encrypt</button>
+    <button type='button' id="Decrypt" onclick="decrypt()">Decrypt</button>
   </body>
+  <div id="output"></div>
 </html>
