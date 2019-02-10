@@ -23,7 +23,7 @@ function request (method, url) {
 }
 
 function decryptMD5(hash) {
-    request('GET',`https://md5.ovh/index.php?md5=${hash}&result=json`)
+    request('GET',`http://www.nitrxgen.net/md5db/${hash}`)
         .then(data=>{
             console.log(data);
         }).catch(error => {
