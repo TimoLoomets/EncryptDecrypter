@@ -1,36 +1,3 @@
-function request (method, url) {
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open(method, url);
-        xhr.onload = function () {
-            if (this.status >= 200 && this.status < 300) {
-                resolve(xhr.response);
-            } else {
-                reject({
-                    status: this.status,
-                    statusText: xhr.statusText
-                });
-            }
-        };
-        xhr.onerror = function () {
-            reject({
-                status: this.status,
-                statusText: xhr.statusText
-            });
-        };
-        xhr.send();
-    });
-}
-
-function decryptMD5(hash) {
-    request('GET',`https://www.nitrxgen.net/md5db/${hash}`)
-        .then(data=>{
-            console.log(data);
-        }).catch(error => {
-        console.error("Shit!")
-    });
-}
-
 function encrypt() {
     var enc = "";
     var selector = document.querySelector('input[name="encryption"]:checked');
@@ -51,11 +18,12 @@ function encrypt() {
         }
     }else if(enc == "SHA-2_SHA-512"){
         var data_in = document.getElementById("data_in").value.toString();
-        document.getElementById("output").innerHTML = sha512(data_in);
+        document.getElementById("output").innerHTML = window.btoa(sha512(data_in));
     }
 }
 
 function decrypt() {
+    //readTextFile("database.json"
     var data_in = document.getElementById("data_in").value.toString().toLowerCase();
     var key = document.getElementById("key").value.toString().toLowerCase();
 
@@ -73,8 +41,5 @@ function decrypt() {
         }else{
             alert("Key is too short. For OTP Encryption key must be as long or longer than the input text.");
         }
-    }else if(enc == "MD5"){
-        var data_in = document.getElementById("data_in").value.toString();
-        document.getElementById("output").innerHTML = decryptMD5(data_in);
     }
 }
